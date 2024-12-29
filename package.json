@@ -1,0 +1,24 @@
+{
+  "name": "toy-element",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "pnpm -C play dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ho-liang/components": "workspace:*",
+    "@ho-liang/hooks": "workspace:*",
+    "@ho-liang/theme-chalk": "workspace:*",
+    "@ho-liang/utils": "workspace:*",
+    "typescript": "^5.7.2",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "sass": "^1.83.0",
+    "unplugin-vue-define-options": "^1.5.3"
+  }
+}
