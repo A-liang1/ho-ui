@@ -1,13 +1,31 @@
 @use "config" as *;
 
 @mixin b($block) {
-  $B: $namespace + "-" + $block;
+  $B: $namespace + $common-separator + $block;
 
   .#{$B} {
     @content;
   }
 }
 
+@mixin e($element) {
+  $selector: &;
+  @at-root {
+    #{$selector + $element-separator + $element} {
+      @content;
+    }
+  }
+}
+
+@mixin m($modifier) {
+  $selector: &;
+  @at-root {
+    #{$selector + $modifier-separator + $modifier} {
+      @content;
+    }
+  }
+}
+// Element plus
 // @mixin e($element) {
 //   $E: $element !global;
 //   $selector: &;
@@ -56,10 +74,10 @@
 //   }
 // }
 
-// @mixin when($state) {
-//   @at-root {
-//     &.#{$state-prefix + $state} {
-//       @content;
-//     }
-//   }
-// }
+@mixin when($state) {
+  @at-root {
+    &.#{$state-prefix + $state} {
+      @content;
+    }
+  }
+}
