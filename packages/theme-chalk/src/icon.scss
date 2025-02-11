@@ -1,7 +1,17 @@
-@use "mixins/mixin.scss" as *;
-@include b("icon") {
-  display: inline-flex;
+@use 'mixins/mixin.scss' as *;
+@include b('icon') {
+  vertical-align: middle;
   height: 1em;
   width: 1em;
-  vertical-align: middle;
+  line-height: 1em;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  fill: currentColor;
+  font-size: inherit;
+  svg {
+    height: 1em;
+    width: 1em;
+  }
 }

@@ -6,11 +6,10 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useNamespace } from '@ho-liang/hooks'
-import { addUnit, isUndefined } from '@ho-liang/utils'
 import { iconProps } from './icon'
 import type { CSSProperties } from 'vue'
-
+import { useNamespace } from '@ho-liang/hooks'
+import { addUnit, isUndefined } from '@ho-liang/utils'
 // 定义组件的名字
 defineOptions({
   name: 'ho-icon',
