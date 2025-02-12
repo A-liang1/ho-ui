@@ -1,4 +1,12 @@
 @use 'mixins/mixin.scss' as *;
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 @include b('icon') {
   vertical-align: middle;
   height: 1em;
@@ -13,5 +21,8 @@
   svg {
     height: 1em;
     width: 1em;
+    &.loading {
+      animation: loading 1s linear infinite;
+    }
   }
 }

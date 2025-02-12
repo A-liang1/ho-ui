@@ -10,3 +10,5 @@ declare module 'vue' {
     HoTree: typeof HoTree
   }
 }
+
+export * from './src/tree'

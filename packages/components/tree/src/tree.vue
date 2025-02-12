@@ -1,21 +1,28 @@
 <template>
   <div :class="bem.b()">
-    <template v-for="node in flattenTree" :key="node.key">
-      <div :class="bem.e('element')">{{ node.label }}</div>
-    </template>
+    <HoTreeNode
+      v-for="node in flattenTree"
+      :key="node.key"
+      :node="node"
+      :loadingKeys="loadingKeysRef"
+      :expanded="isExpanded(node)"
+      @toggle="toggle(node)"
+    ></HoTreeNode>
   </div>
 </template>
 <script lang="ts" setup>
-import { treeProps, TreeNode, TreeOptions } from './tree'
+import { treeProps, TreeNode, TreeOptions, Key } from './tree'
 import { computed, ref, watch } from 'vue'
 import { useNamespace } from '@ho-liang/hooks'
+import HoTreeNode from './treeNode.vue'
 
 const bem = useNamespace('tree', 'ho')
 
 defineOptions({
   name: 'ho-tree',
 })
-const { data, labelField, keyField, childrenField, defaultExpandedKeys } = defineProps(treeProps)
+const { data, labelField, keyField, childrenField, defaultExpandedKeys, onLoad } =
+  defineProps(treeProps)
 
 const tree = ref<TreeNode[]>([])
 // 规格化树的工具函数（获取传入的key，label，children）
@@ -34,7 +41,7 @@ const createOptions = (key: string, label: string, children: string) => {
 }
 const treeOptions = createOptions(keyField, labelField, childrenField)
 // 递归规格化树
-const createTree = (data: TreeOptions[]): TreeNode[] => {
+const createTree = (data: TreeOptions[], parent: TreeNode | null = null): TreeNode[] => {
   const traversal = (data: TreeOptions[], parent: TreeNode | null = null) => {
     return data.map((node) => {
       const children = treeOptions.getChildren(node) || []
@@ -51,7 +58,7 @@ const createTree = (data: TreeOptions[]): TreeNode[] => {
     })
   }
 
-  const result: TreeNode[] = traversal(data)
+  const result: TreeNode[] = traversal(data, parent)
   return result
 }
 watch(
@@ -69,7 +76,7 @@ const flattenTree = computed(() => {
   const nodes = tree.value || [] // 格式化后的树
   const stack: TreeNode[] = [] // 栈
 
-  for (let i = 0; i < nodes.length; i++) {
+  for (let i = nodes.length - 1; i >= 0; i--) {
     stack.push(nodes[i])
   } // [41 40]
   //深度遍历
@@ -89,4 +96,42 @@ const flattenTree = computed(() => {
 
   return flattenNodes
 })
+// 判断是否展开
+const isExpanded = (node: TreeNode): boolean => {
+  return ExpandedKeysSet.value.has(node.key)
+}
+
+const loadingKeysRef = ref(new Set<Key>())
+
+const triggerLoading = (node: TreeNode) => {
+  if (!node.children.length && !node.isLeaf) {
+    const loadingKeys = loadingKeysRef.value
+    if (!loadingKeys.has(node.key)) {
+      loadingKeys.add(node.key)
+      if (onLoad) {
+        onLoad(node.rawNode).then((children: TreeOptions[]) => {
+          node.rawNode.children = children
+          node.children = createTree(children, node)
+          loadingKeys.delete(node.key)
+        })
+      }
+    }
+  }
+}
+
+// 展开
+const expand = (node: TreeNode) => {
+  ExpandedKeysSet.value.add(node.key)
+  triggerLoading(node)
+}
+// 收起
+const collapse = (node: TreeNode) => {
+  ExpandedKeysSet.value.delete(node.key)
+}
+
+// 切换
+const toggle = (node: TreeNode) => {
+  if (isExpanded(node) && !loadingKeysRef.value.has(node.key)) collapse(node)
+  else expand(node)
+}
 </script>
