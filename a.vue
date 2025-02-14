@@ -1,12 +1,14 @@
 <script setup>
-import b from "./b.vue";
-import { ref } from "vue";
-const a = ref(1);
+import BComponent from './b.vue'
+import { ref } from 'vue'
+const a = ref(1)
 const emitChangeA = (val) => {
-  a.value = val;
-};
+  a.value = val
+}
+const selected = ref(1)
 </script>
 <template>
   {{ a }}
-  <b :a="a" @changeProp="emitChangeA"></b>
+  <BComponent :a="a" @changeProp="emitChangeA" v-model:selected="selected"></BComponent>
+  <!-- 相当于 :selected="selected" @update:selected="selected = $event" -->
 </template>

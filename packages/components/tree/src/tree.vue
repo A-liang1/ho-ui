@@ -1,28 +1,45 @@
 <template>
   <div :class="bem.b()">
-    <HoTreeNode
-      v-for="node in flattenTree"
-      :key="node.key"
-      :node="node"
-      :loadingKeys="loadingKeysRef"
-      :expanded="isExpanded(node)"
-      @toggle="toggle(node)"
-    ></HoTreeNode>
+    <ho-virtual-list :items="flattenTree" :remain="8" :size="35">
+      <template #a="{ node }">
+        <ho-tree-node
+          :key="node.key"
+          :node="node"
+          :expanded="isExpanded(node)"
+          :loadingKeys="loadingKeysRef"
+          @toggle="toggle(node)"
+          :selectedKeys="selectKeysRef"
+          @select="handleSelect(node)"
+        />
+      </template>
+    </ho-virtual-list>
   </div>
 </template>
 <script lang="ts" setup>
-import { treeProps, TreeNode, TreeOptions, Key } from './tree'
-import { computed, ref, watch } from 'vue'
+import { treeProps, TreeNode, TreeOptions, Key, treeEmits, treeInjectKey } from './tree'
+import { computed, provide, ref, useSlots, watch } from 'vue'
 import { useNamespace } from '@ho-liang/hooks'
 import HoTreeNode from './treeNode.vue'
+import HoVirtualList from '@ho-liang/components/virtual-list'
 
 const bem = useNamespace('tree', 'ho')
 
 defineOptions({
   name: 'ho-tree',
 })
-const { data, labelField, keyField, childrenField, defaultExpandedKeys, onLoad } =
-  defineProps(treeProps)
+const {
+  data,
+  labelField,
+  keyField,
+  childrenField,
+  defaultExpandedKeys,
+  onLoad,
+  selectedKeys,
+  selectable,
+  multiple,
+} = defineProps(treeProps)
+
+const emits = defineEmits(treeEmits)
 
 const tree = ref<TreeNode[]>([])
 // 规格化树的工具函数（获取传入的key，label，children）
@@ -52,6 +69,7 @@ const createTree = (data: TreeOptions[], parent: TreeNode | null = null): TreeNo
         level: parent ? parent.level + 1 : 0,
         rawNode: node,
         isLeaf: node.isLeaf ?? children.length === 0,
+        disabled: !!node.disabled,
       }
       if (children.length > 0) treeNode.children = traversal(children, treeNode)
       return treeNode
@@ -70,6 +88,7 @@ watch(
 )
 // 拍平 默认展开的key
 const ExpandedKeysSet = ref(new Set(defaultExpandedKeys))
+// 拍平树
 const flattenTree = computed(() => {
   const expandedKeys = ExpandedKeysSet.value // 默认展开的key，传入的key
   const flattenNodes: TreeNode[] = [] // 拍平的树
@@ -102,7 +121,7 @@ const isExpanded = (node: TreeNode): boolean => {
 }
 
 const loadingKeysRef = ref(new Set<Key>())
-
+// 触发加载
 const triggerLoading = (node: TreeNode) => {
   if (!node.children.length && !node.isLeaf) {
     const loadingKeys = loadingKeysRef.value
@@ -128,10 +147,36 @@ const expand = (node: TreeNode) => {
 const collapse = (node: TreeNode) => {
   ExpandedKeysSet.value.delete(node.key)
 }
-
 // 切换
 const toggle = (node: TreeNode) => {
   if (isExpanded(node) && !loadingKeysRef.value.has(node.key)) collapse(node)
   else expand(node)
 }
+
+// 选中节点
+const selectKeysRef = ref<Key[]>([])
+
+watch(
+  () => selectedKeys,
+  (value) => {
+    if (value) selectKeysRef.value = value
+  },
+  { immediate: true },
+)
+
+const handleSelect = (node: TreeNode) => {
+  const key = node.key
+  let keys = Array.from(selectKeysRef.value)
+
+  if (!selectable) return
+  if (multiple) keys = keys.includes(key) ? keys.filter((item) => item !== key) : [...keys, key]
+  // else keys = keys.includes(key) ? [key] : [key]
+  else keys = [key]
+
+  emits('update:selectedKeys', keys)
+}
+// 提供出去的属性
+provide(treeInjectKey, {
+  slots: useSlots(),
+})
 </script>

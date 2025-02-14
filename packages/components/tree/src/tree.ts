@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType } from 'vue'
+import type { ExtractPropTypes, InjectionKey, PropType, SetupContext } from 'vue'
 
 export type Key = string | number
 
@@ -14,6 +14,7 @@ export interface TreeOptions {
   key?: Key
   children?: TreeOptions[]
   isLeaf?: boolean
+  disabled?: boolean
   [key: string]: unknown
 }
 
@@ -39,6 +40,15 @@ export const treeProps = {
     default: 'children',
   },
   onLoad: Function as PropType<(node: TreeOptions) => Promise<TreeOptions[]>>,
+  selectedKeys: Array as PropType<Key[]>,
+  selectable: {
+    type: Boolean,
+    default: true,
+  },
+  multiple: {
+    type: Boolean,
+    default: false,
+  },
 } as const
 
 export const treeNodeProps = {
@@ -55,11 +65,34 @@ export const treeNodeProps = {
     default: () => new Set<Key>(),
     required: true,
   },
+  selectedKeys: {
+    type: Array as PropType<Key[]>,
+    default: () => [],
+  },
+} as const
+
+export const treeEmits = {
+  'update:selectedKeys': (keys: Key[]) => keys,
 } as const
 
 export const treeNodeEmits = {
   toggle: (node: TreeNode) => node,
+  select: (node: TreeNode) => node,
 } as const
 
 export type TreeProps = Partial<ExtractPropTypes<typeof treeProps>>
 export type TreeNodeProps = Partial<ExtractPropTypes<typeof treeNodeProps>>
+
+export interface TreeContext {
+  slots: SetupContext['slots']
+  // emit: SetupContext<typeof treeEmits>['emit']
+}
+// 提供出去的属性
+export const treeInjectKey: InjectionKey<TreeContext> = Symbol()
+
+export const treeNodeContextProps = {
+  node: {
+    type: Object as PropType<TreeNode>,
+    required: true,
+  },
+} as const

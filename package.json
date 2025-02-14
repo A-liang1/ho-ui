@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "play": "pnpm -C play dev",
+    "p": "pnpm -C play dev",
     "doc": "pnpm -C docs dev"
   },
   "keywords": [],

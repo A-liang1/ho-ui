@@ -1,0 +1,13 @@
+@use './mixins/mixin.scss' as *;
+
+@include b('vl') {
+  overflow-y: scroll;
+  position: relative;
+  border: 1px solid red;
+  @include e('phantom') {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 100%;
+  }
+}

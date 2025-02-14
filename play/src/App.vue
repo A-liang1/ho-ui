@@ -1,20 +1,7 @@
 <script setup lang="ts">
 // import LogoVue from '@vicons/ionicons5/LogoVue'
 import { ref } from 'vue'
-import { TreeOptions } from '@ho-liang/components'
-
-// function createData(level = 4, parentKey = ''): any {
-//   if (!level) return []
-//   const arr = new Array(7 - level).fill(0)
-//   return arr.map((_, idx: number) => {
-//     const key = parentKey + level + idx
-//     return {
-//       xx: createLabel(level),
-//       key,
-//       children: createData(level - 1, key),
-//     }
-//   })
-// }
+import { TreeOptions, Key } from '@ho-liang/components'
 
 function createLabel(level: number): string {
   if (level === 1) return '1'
@@ -24,18 +11,31 @@ function createLabel(level: number): string {
   return ''
 }
 
-const createData = () => [
-  {
-    xx: nextLabel(),
-    key: 1,
-    isLeaf: false,
-  },
-  {
-    xx: nextLabel(),
-    key: 2,
-    isLeaf: false,
-  },
-]
+function createData(level = 4, parentKey = ''): any {
+  if (!level) return []
+  const arr = new Array(20 - level).fill(0)
+  return arr.map((_, idx: number) => {
+    const key = parentKey + level + idx
+    return {
+      label: createLabel(level),
+      key,
+      children: createData(level - 1, key),
+    }
+  })
+}
+
+// const createData = () => [
+//   {
+//     xx: nextLabel(),
+//     key: 1,
+//     isLeaf: false,
+//   },
+//   {
+//     xx: nextLabel(),
+//     key: 2,
+//     isLeaf: false,
+//   },
+// ]
 
 const nextLabel = (currentLabel?: string): string => {
   if (!currentLabel) return 'Out of Tao,One is born'
@@ -47,29 +47,57 @@ const nextLabel = (currentLabel?: string): string => {
 }
 
 const data = ref(createData())
-console.log(data.value)
+// console.log(data.value)
+// const data = ref<TreeOptions[]>([
+//   {
+//     key: '0',
+//     label: '0',
+//     children: [
+//       { key: '0-0', label: '0-0' },
+//       {
+//         disabled: true,
+//         key: '0-1',
+//         label: '0-1',
+//         children: [
+//           {
+//             label: '0-1-0',
+//             key: '0-1-0',
+//           },
+//           {
+//             label: '0-1-1',
+//             key: '0-1-1',
+//           },
+//         ],
+//       },
+//     ],
+//   },
+// ])
 
 const handleLoad = (node: TreeOptions) => {
   return new Promise<TreeOptions[]>((resolve) => {
     setTimeout(() => {
       resolve([
         {
-          xx: nextLabel(node.label),
-          key: node.key + nextLabel(node.label),
+          xx: nextLabel(node.xx),
+          key: node.key + nextLabel(node.xx),
           isLeaf: false,
         },
       ])
     }, 1000)
   })
 }
+const value = ref<Key[]>([])
 </script>
 <template>
   <!-- <ho-icon :color="'green'" :size="'100px'">
     <LogoVue />
   </ho-icon> -->
-  <div style="height: 200px; overflow: auto">
-    <ho-tree :data="data" :label-field="'xx'" :on-load="handleLoad" />
-  </div>
+
+  <ho-tree :data="data" :on-load="handleLoad" v-model:selected-keys="value" selectable>
+    <template #default="{ node }">
+      <span>{{ node.key }}-{{ node.label }}</span>
+    </template>
+  </ho-tree>
 </template>
 
 <style scoped></style>
