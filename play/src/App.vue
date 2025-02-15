@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // import LogoVue from '@vicons/ionicons5/LogoVue'
 import { ref } from 'vue'
-import { TreeOptions, Key } from '@ho-liang/components'
+import type { TreeOptions, Key } from '@ho-liang/components'
 
 function createLabel(level: number): string {
   if (level === 1) return '1'
@@ -78,8 +78,8 @@ const handleLoad = (node: TreeOptions) => {
     setTimeout(() => {
       resolve([
         {
-          xx: nextLabel(node.xx),
-          key: node.key + nextLabel(node.xx),
+          xx: nextLabel(node.xx as string),
+          key: node.key + nextLabel(node.xx as string),
           isLeaf: false,
         },
       ])

@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ES2020", //遵循es6版本
+    "useDefineForClassFields": true, // 支持类字段
+    "module": "ESNext", //打包模块类型ESNext
+    "lib": ["ESNext", "DOM", "DOM.Iterable"], //编译时用的库
+    "skipLibCheck": true, //跳过类库检测
+    /* Bundler mode */
+    "moduleResolution": "node", //按照node模块来解析
+    "allowImportingTsExtensions": true, // 允许导入ts扩展
+    "resolveJsonModule": true, //解析json模块
+    "isolatedModules": true, // 启用独立模块
+    "noEmit": true, // 不生成文件
+    "jsx": "preserve", //jsx不做任何转换
+    "jsxImportSource": "vue", // 指定jsx的导入源
+    /* Linting */
+    "strict": true, //是否启动严格模式
+    "noUnusedLocals": true, // 禁止未使用的局部变量
+    "noUnusedParameters": true, // 禁止未使用的参数
+    "noFallthroughCasesInSwitch": true // 禁止switch语句落空
+  },
+  "include": [
+    "packages/core/index.ts",
+    "packages/hooks/**/*.ts",
+    "packages/utils/**/*.ts",
+    "packages/components/index.ts",
+    "packages/components/**/*.ts",
+    "packages/components/**/*.vue"
+  ]
+}

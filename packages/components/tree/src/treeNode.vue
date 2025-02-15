@@ -32,8 +32,8 @@
   </div>
 </template>
 <script lang="ts" setup>
-import Switcher from './icon/Switcher'
-import Loading from './icon/Loading'
+import Switcher from './icon/Switcher.vue'
+import Loading from './icon/Loading.vue'
 import HoIcon from '@ho-liang/components/icon'
 import HoTreeNodeContext from './treeNodeContext.vue'
 import HoCheckbox from '@ho-liang/components/checkbox'
