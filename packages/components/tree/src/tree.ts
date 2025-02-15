@@ -7,6 +7,7 @@ export interface TreeNode extends Required<TreeOptions> {
   rawNode: TreeOptions
   children: TreeNode[]
   isLeaf: boolean
+  parentKey: Key | undefined
 }
 
 export interface TreeOptions {
@@ -49,6 +50,14 @@ export const treeProps = {
     type: Boolean,
     default: false,
   },
+  showCheckbox: {
+    type: Boolean,
+    default: false,
+  },
+  defaultCheckedKeys: {
+    type: Array as PropType<Key[]>,
+    default: () => [],
+  },
 } as const
 
 export const treeNodeProps = {
@@ -69,6 +78,13 @@ export const treeNodeProps = {
     type: Array as PropType<Key[]>,
     default: () => [],
   },
+  showCheckbox: {
+    type: Boolean,
+    default: false,
+  },
+  checked: Boolean,
+  disabled: Boolean,
+  indeterminate: Boolean,
 } as const
 
 export const treeEmits = {
@@ -78,6 +94,7 @@ export const treeEmits = {
 export const treeNodeEmits = {
   toggle: (node: TreeNode) => node,
   select: (node: TreeNode) => node,
+  checked: ({ node, value }: { node: TreeNode; value: boolean }) => typeof value === 'boolean',
 } as const
 
 export type TreeProps = Partial<ExtractPropTypes<typeof treeProps>>

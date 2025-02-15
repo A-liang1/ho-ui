@@ -19,6 +19,14 @@
         </ho-icon>
       </span>
 
+      <ho-checkbox
+        v-if="showCheckbox"
+        :model-value="checked"
+        :disabled="disabled"
+        :indeterminate="indeterminate"
+        @change="handleChecked"
+      ></ho-checkbox>
+
       <ho-tree-node-context :node="node" />
     </div>
   </div>
@@ -26,13 +34,23 @@
 <script lang="ts" setup>
 import Switcher from './icon/Switcher'
 import Loading from './icon/Loading'
-import HoTreeNodeContext from './treeNodeContext.vue'
 import HoIcon from '@ho-liang/components/icon'
+import HoTreeNodeContext from './treeNodeContext.vue'
+import HoCheckbox from '@ho-liang/components/checkbox'
 import { treeNodeProps, treeNodeEmits } from './tree.js'
 import { useNamespace } from '@ho-liang/hooks'
 import { computed } from 'vue'
 
-const { node, expanded, loadingKeys, selectedKeys } = defineProps(treeNodeProps)
+const {
+  node,
+  expanded,
+  loadingKeys,
+  selectedKeys,
+  showCheckbox,
+  checked,
+  disabled,
+  indeterminate,
+} = defineProps(treeNodeProps)
 const bem = useNamespace('tree-node', 'ho')
 const emit = defineEmits(treeNodeEmits)
 // toggle 切换展开收缩的状态
@@ -49,5 +67,9 @@ const isSelected = computed(() => {
 const handleSelect = () => {
   if (node.disabled) return
   emit('select', node)
+}
+// 点击后，处理选中状态
+const handleChecked = (value: boolean) => {
+  emit('checked', { node, value })
 }
 </script>

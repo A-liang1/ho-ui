@@ -42,10 +42,7 @@ const initVl = () => {
   if (phantomRef.value) phantomRef.value!.style.height = phantomHeight + 'px'
 }
 
-watch(
-  () => items.length,
-  () => initVl(),
-)
+watch(() => items.length, initVl)
 
 onMounted(() => initVl())
 

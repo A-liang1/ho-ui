@@ -46,32 +46,32 @@ const nextLabel = (currentLabel?: string): string => {
   return ''
 }
 
-const data = ref(createData())
+// const data = ref(createData())
 // console.log(data.value)
-// const data = ref<TreeOptions[]>([
-//   {
-//     key: '0',
-//     label: '0',
-//     children: [
-//       { key: '0-0', label: '0-0' },
-//       {
-//         disabled: true,
-//         key: '0-1',
-//         label: '0-1',
-//         children: [
-//           {
-//             label: '0-1-0',
-//             key: '0-1-0',
-//           },
-//           {
-//             label: '0-1-1',
-//             key: '0-1-1',
-//           },
-//         ],
-//       },
-//     ],
-//   },
-// ])
+const data = ref<TreeOptions[]>([
+  {
+    key: '0',
+    label: '0',
+    children: [
+      { key: '0-0', label: '0-0' },
+      {
+        disabled: true,
+        key: '0-1',
+        label: '0-1',
+        children: [
+          {
+            label: '0-1-0',
+            key: '0-1-0',
+          },
+          {
+            label: '0-1-1',
+            key: '0-1-1',
+          },
+        ],
+      },
+    ],
+  },
+])
 
 const handleLoad = (node: TreeOptions) => {
   return new Promise<TreeOptions[]>((resolve) => {
@@ -87,17 +87,29 @@ const handleLoad = (node: TreeOptions) => {
   })
 }
 const value = ref<Key[]>([])
+
+const check = ref(true)
+
+const handleChange = (value: boolean) => {}
 </script>
 <template>
   <!-- <ho-icon :color="'green'" :size="'100px'">
     <LogoVue />
   </ho-icon> -->
 
-  <ho-tree :data="data" :on-load="handleLoad" v-model:selected-keys="value" selectable>
+  <ho-tree
+    :data="data"
+    :on-load="handleLoad"
+    v-model:selected-keys="value"
+    selectable
+    show-checkbox
+    :default-checked-keys="['40', '41']"
+  >
     <template #default="{ node }">
       <span>{{ node.key }}-{{ node.label }}</span>
     </template>
   </ho-tree>
-</template>
 
-<style scoped></style>
+  {{ check }}
+  <ho-checkbox :model-value="check" :label="'节点'" @change="handleChange">节点1</ho-checkbox>
+</template>

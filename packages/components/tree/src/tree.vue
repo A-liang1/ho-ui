@@ -7,9 +7,14 @@
           :node="node"
           :expanded="isExpanded(node)"
           :loadingKeys="loadingKeysRef"
-          @toggle="toggle(node)"
+          @toggle="toggle"
           :selectedKeys="selectKeysRef"
-          @select="handleSelect(node)"
+          @select="handleSelect"
+          :show-checkbox="showCheckbox"
+          :checked="isChecked(node)"
+          :disabled="isDisabled(node)"
+          :indeterminate="isIndeterminate(node)"
+          @checked="handleChecked"
         />
       </template>
     </ho-virtual-list>
@@ -37,6 +42,8 @@ const {
   selectedKeys,
   selectable,
   multiple,
+  showCheckbox,
+  defaultCheckedKeys,
 } = defineProps(treeProps)
 
 const emits = defineEmits(treeEmits)
@@ -70,6 +77,7 @@ const createTree = (data: TreeOptions[], parent: TreeNode | null = null): TreeNo
         rawNode: node,
         isLeaf: node.isLeaf ?? children.length === 0,
         disabled: !!node.disabled,
+        parentKey: parent?.key,
       }
       if (children.length > 0) treeNode.children = traversal(children, treeNode)
       return treeNode
@@ -179,4 +187,24 @@ const handleSelect = (node: TreeNode) => {
 provide(treeInjectKey, {
   slots: useSlots(),
 })
+//checkbox是否选中
+const checkedKeysRefs = ref<Set<Key>>(new Set(defaultCheckedKeys))
+
+const isChecked = (node: TreeNode) => {
+  return checkedKeysRefs.value.has(node.key)
+}
+
+const isDisabled = (node: TreeNode) => {
+  return !!node.disabled
+}
+
+const indeterminateKeysRefs = ref<Set<Key>>(new Set())
+
+const isIndeterminate = (node: TreeNode) => {
+  return true
+}
+
+const handleChecked = ({ node, value }: { node: TreeNode; value: boolean }) => {
+  console.log(node, value)
+}
 </script>
