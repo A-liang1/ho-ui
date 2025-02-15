@@ -1,20 +1,39 @@
 ---
 layout: home
 
+title: Ho-ui
+titleTemplate: 毫无价值的Vue3组件库
+
 hero:
-  name: Ho-ui 组件库
-  text: 基于Vue3的组件库
-  tagline: 快速构建现代Web应用
+  name: Ho-ui
+  text: 一个Vue3组件库
+  tagline: 毫无价值，只为学习组件库的搭建
+  image:
+   src: /ho-ui.png
+   alt: Ho-ui
+   style:
+     maxHeight: 600px
+     maxWidth: 600px
+     width: 600px
+     height: 600px
   actions:
     - theme: brand
-      text: 快速开始
-      link: /guide/quickstart
-
+      text: 开始
+      link: /guide/getting-started
+    - theme: brand
+      text: 组件
+      link: /components/button
 features:
+  - icon: 💡
+    title: Vue3组件库
+    details: 基于vite打包和TypeScript开发
   - icon: 📦
-    title: 组件库构建流程
-    details: 使用Vue3构建高效组件库
-  - icon: 🧪
-    title: 组件库单元测试
-    details: 全面的单元测试覆盖
+    title: 仅供预览
+    details: 倾向于Vue3组件库的学习，请勿用于实际生产项目
+  - icon: 🛠️
+    title: 按需引入
+    details: 直接支持按需引入无需配置任何插件。
 ---
+
+
+
