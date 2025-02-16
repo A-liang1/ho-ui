@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "p": "pnpm -C play dev",
-    "doc": "pnpm -C docs dev",
-    "doc:build": "pnpm -C docs build",
+    "doc": "pnpm -C packages/docs dev",
+    "doc:build": "pnpm -C packages/docs build",
     "build": "pnpm -C packages/core b",
     "test": "echo 'todo'"
   },
