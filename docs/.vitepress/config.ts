@@ -3,6 +3,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: 'Ho-UI',
   description: 'Ho-UI 组件库文档',
+  base: '/ho-ui/',
   themeConfig: {
     nav: [
       { text: '指南', link: '/guide/getting-started' },

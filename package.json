@@ -6,7 +6,9 @@
   "scripts": {
     "p": "pnpm -C play dev",
     "doc": "pnpm -C docs dev",
-    "build": "pnpm -C packages/core b"
+    "doc:build": "pnpm -C docs build",
+    "build": "pnpm -C packages/core b",
+    "test": "echo 'todo'"
   },
   "keywords": [],
   "author": "",
