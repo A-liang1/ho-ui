@@ -7,13 +7,13 @@
           :node="node"
           :expanded="isExpanded(node)"
           :loadingKeys="loadingKeysRef"
-          @toggle="toggle"
           :selectedKeys="selectKeysRef"
-          @select="handleSelect"
           :show-checkbox="showCheckbox"
           :checked="isChecked(node)"
           :disabled="isDisabled(node)"
           :indeterminate="isIndeterminate(node)"
+          @toggle="toggle"
+          @select="handleSelect"
           @checked="handleChecked"
         />
       </template>
@@ -22,7 +22,7 @@
 </template>
 <script lang="ts" setup>
 import { treeProps, TreeNode, TreeOptions, Key, treeEmits, treeInjectKey } from './tree'
-import { computed, provide, ref, useSlots, watch } from 'vue'
+import { computed, onMounted, provide, ref, useSlots, watch } from 'vue'
 import { useNamespace } from '@ho-liang/hooks'
 import HoTreeNode from './treeNode.vue'
 import HoVirtualList from '@ho-liang/components/virtual-list'
@@ -201,10 +201,69 @@ const isDisabled = (node: TreeNode) => {
 const indeterminateKeysRefs = ref<Set<Key>>(new Set())
 
 const isIndeterminate = (node: TreeNode) => {
-  return true
+  return indeterminateKeysRefs.value.has(node.key)
 }
 
-const handleChecked = ({ node, value }: { node: TreeNode; value: boolean }) => {
-  console.log(node, value)
+const handleCheckedChild = (node: TreeNode, checked: boolean) => {
+  if (!node) return
+  const checkedKeys = checkedKeysRefs.value
+  if (checked) indeterminateKeysRefs.value.delete(node.key)
+
+  checkedKeys[checked ? 'add' : 'delete'](node.key)
+  const children = node.children
+  if (children) {
+    children.forEach((child) => {
+      if (!child.disabled) {
+        handleCheckedChild(child, checked)
+      }
+    })
+  }
 }
+
+const findNode = (key: Key) => {
+  return flattenTree.value.find((node) => node.key === key)
+}
+
+const updateCheckedKeys = (node: TreeNode) => {
+  if (node.parentKey) {
+    const parentNode = findNode(node.parentKey)
+    if (parentNode) {
+      let allChecked = true
+      let hasChecked = false
+
+      const nodes = parentNode.children
+      for (const node of nodes) {
+        if (checkedKeysRefs.value.has(node.key)) {
+          hasChecked = true
+        } else if (indeterminateKeysRefs.value.has(node.key)) {
+          allChecked = false
+          hasChecked = true
+        } else allChecked = false
+      }
+      if (allChecked) {
+        checkedKeysRefs.value.add(parentNode.key)
+        indeterminateKeysRefs.value.delete(parentNode.key)
+      } else if (hasChecked) {
+        checkedKeysRefs.value.delete(parentNode.key)
+        indeterminateKeysRefs.value.add(parentNode.key)
+      } else {
+        checkedKeysRefs.value.delete(parentNode.key)
+        indeterminateKeysRefs.value.delete(parentNode.key)
+      }
+      updateCheckedKeys(parentNode)
+    }
+  }
+}
+
+const handleChecked = (node: TreeNode, checked: boolean) => {
+  handleCheckedChild(node, checked)
+
+  updateCheckedKeys(node)
+}
+
+onMounted(() => {
+  checkedKeysRefs.value.forEach((key: Key) => {
+    handleCheckedChild(findNode(key)!, true)
+  })
+})
 </script>

@@ -94,7 +94,7 @@ export const treeEmits = {
 export const treeNodeEmits = {
   toggle: (node: TreeNode) => node,
   select: (node: TreeNode) => node,
-  checked: ({ node, value }: { node: TreeNode; value: boolean }) => typeof value === 'boolean',
+  checked: (node: TreeNode, checked: boolean) => typeof checked === 'boolean',
 } as const
 
 export type TreeProps = Partial<ExtractPropTypes<typeof treeProps>>

@@ -70,6 +70,6 @@ const handleSelect = () => {
 }
 // 点击后，处理选中状态
 const handleChecked = (value: boolean) => {
-  emit('checked', { node, value })
+  emit('checked', node, value)
 }
 </script>

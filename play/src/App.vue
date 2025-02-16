@@ -46,32 +46,32 @@ const nextLabel = (currentLabel?: string): string => {
   return ''
 }
 
-// const data = ref(createData())
+const data = ref(createData())
 // console.log(data.value)
-const data = ref<TreeOptions[]>([
-  {
-    key: '0',
-    label: '0',
-    children: [
-      { key: '0-0', label: '0-0' },
-      {
-        disabled: true,
-        key: '0-1',
-        label: '0-1',
-        children: [
-          {
-            label: '0-1-0',
-            key: '0-1-0',
-          },
-          {
-            label: '0-1-1',
-            key: '0-1-1',
-          },
-        ],
-      },
-    ],
-  },
-])
+// const data = ref<TreeOptions[]>([
+//   {
+//     key: '0',
+//     label: '0',
+//     children: [
+//       { key: '0-0', label: '0-0' },
+//       {
+//         disabled: true,
+//         key: '0-1',
+//         label: '0-1',
+//         children: [
+//           {
+//             label: '0-1-0',
+//             key: '0-1-0',
+//           },
+//           {
+//             label: '0-1-1',
+//             key: '0-1-1',
+//           },
+//         ],
+//       },
+//     ],
+//   },
+// ])
 
 const handleLoad = (node: TreeOptions) => {
   return new Promise<TreeOptions[]>((resolve) => {
