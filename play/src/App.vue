@@ -1,19 +1,30 @@
 <template>
-  <ho-collapse v-model="activeNames">
-    <ho-collapse-item name="1" title="标题1">
-      <div>内容1</div>
-    </ho-collapse-item>
-    <ho-collapse-item name="2" title="标题2">
-      <div>内容2</div>
-    </ho-collapse-item>
-    <ho-collapse-item name="3" title="标题3">
-      <div>内容3</div>
-    </ho-collapse-item>
-  </ho-collapse>
+  <ho-button
+    @click="handleClick"
+    @mousedown="handleMousedown"
+    size="small"
+    type="danger"
+    :round="true"
+    :disabled="false"
+  >
+    按钮
+    <template #icon>
+      <ho-icon>
+        <Switcher />
+      </ho-icon>
+    </template>
+  </ho-button>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
+import HoIcon from '@ho-liang/components/icon'
+import Switcher from '@ho-liang/components/internal-icon/Switcher.vue'
 
-const activeNames = ref(['1'])
+const handleClick = (e: MouseEvent) => {
+  console.log('click', e)
+}
+
+const handleMousedown = (e: MouseEvent) => {
+  console.log('mousedown', e)
+}
 </script>
 <style scoped></style>

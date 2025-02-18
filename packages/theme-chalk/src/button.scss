@@ -1,0 +1,69 @@
+@use './common/vars' as *;
+@use './mixins/mixin' as *;
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@include b(button) {
+  align-items: center;
+  display: inline-flex;
+  cursor: pointer;
+  border: #fafafa;
+  border-radius: 5px;
+  user-select: none;
+  min-height: 40px;
+  line-height: 1;
+  vertical-align: middle;
+  padding: 0 20px;
+
+  @include m(small) {
+    padding: 0 18px;
+  }
+
+  @include m(medium) {
+    padding: 0 20px;
+  }
+
+  @include m(large) {
+    padding: 0 25px;
+  }
+
+  @include when(disabled) {
+    &,
+    &:hover,
+    &:focus {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  @include when(round) {
+    border-radius: 20px;
+  }
+
+  @include m(primary) {
+    @include button-variant($clolor-white, $color-primary, $color-primary);
+  }
+
+  @include m(success) {
+    @include button-variant($clolor-white, $color-success, $color-success);
+  }
+
+  @include m(warning) {
+    @include button-variant($clolor-white, $color-warning, $color-warning);
+  }
+
+  @include m(danger) {
+    @include button-variant($clolor-white, $color-danger, $color-danger);
+  }
+
+  @include m(info) {
+    @include button-variant($clolor-white, $color-info, $color-info);
+  }
+}

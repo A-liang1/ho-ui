@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { inject, computed } from 'vue'
 import { useNamespace } from '@ho-liang/hooks'
 import HoIcon from '@ho-liang/components/icon'
+import Switcher from '../../internal-icon/Switcher.vue'
 import { CollapseItemProps } from './collapse'
-import { inject, computed } from 'vue'
 import { COLLAPSE_CTX_KEY } from './constant'
 
 defineOptions({ name: 'ho-collapse-item' })
@@ -20,16 +21,18 @@ const handleClick = () => {
 </script>
 
 <template>
-  <div :class="[bem.b(), bem.is('disabled', disabled)]">
+  <div :class="[bem.b()]">
     <div
-      :class="[bem.e('header'), bem.is('active', isActive), bem.is('disabled', disabled)]"
+      :class="[bem.e('header'), bem.is('disabled', disabled)]"
       :id="`item-header-${name}`"
       @click="handleClick"
     >
       <span :class="bem.e('title')">
         <slot name="title">{{ title }}</slot>
       </span>
-      <ho-icon />
+      <ho-icon>
+        <Switcher :class="[bem.e('header-angle'), { active: isActive }]"></Switcher>
+      </ho-icon>
     </div>
 
     <div :class="bem.e('wrapper')" v-show="isActive">

@@ -1,6 +1,7 @@
 // 用来整合组件的 最终实现导出组件
 import _Icon from './src/icon.vue'
 import { withInstall } from '@ho-liang/utils'
+import './style/index'
 
 const HoIcon = withInstall(_Icon)
 

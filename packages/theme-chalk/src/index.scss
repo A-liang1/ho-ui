@@ -1,4 +1,7 @@
+@use './common/global.scss';
+@use './common/vars.scss';
 @use 'reset.scss';
+@use 'button.scss';
 @use 'icon.scss';
 @use 'tree.scss';
 @use 'virtual-list.scss';

@@ -1,59 +1,45 @@
 @use './mixins/mixin.scss' as *;
 
-.ho-collapse-item {
+@include b('collapse-item') {
   border-bottom: 1px solid #e5e5e5;
-}
 
-.ho-collapse-item:last-child {
-  border-bottom: none;
-}
-
-.ho-collapse-item__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  padding: 15px;
-  background-color: #f9f9f9;
-  transition: background-color 0.3s;
-}
-
-.ho-collapse-item__header:hover {
-  background-color: #f1f1f1;
-}
-
-.ho-collapse-item__title {
-  font-size: 16px;
-  color: #333;
-}
-
-.ho-collapse-item__header-angle {
-  transition: transform 0.3s;
-}
-
-.ho-collapse-item--active .ho-collapse-item__header-angle {
-  transform: rotate(90deg);
-}
-
-.ho-collapse-item--disabled .ho-collapse-item__header {
-  cursor: not-allowed;
-  color: #a0a0a0;
-  background-color: #f5f5f5;
-}
-
-.ho-collapse-item__wrapper {
-  padding: 10px 15px;
-  background-color: #fff;
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    max-height: 0;
+  &:last-child {
+    border-bottom: none;
   }
-  to {
-    opacity: 1;
-    max-height: 500px;
+
+  @include e('header') {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 15px;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #f1f1f1;
+    }
+
+    @include when('disabled') {
+      cursor: not-allowed;
+      color: #a0a0a0;
+      background-color: #f5f5f5;
+    }
+  }
+
+  @include e('title') {
+    font-size: 16px;
+    color: black;
+  }
+
+  @include e('wrapper') {
+    padding: 10px 15px;
+    background-color: #fff;
+  }
+
+  @include e('header-angle') {
+    transition: transform 0.5s;
+    &.active {
+      transform: rotate(90deg);
+    }
   }
 }

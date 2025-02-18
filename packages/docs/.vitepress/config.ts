@@ -22,8 +22,7 @@ export default defineConfig({
         {
           text: '组件',
           items: [
-            { text: '按钮', link: '/components/button' },
-            { text: '图标', link: '/components/icon' }
+            {text:'Virtualized Tree',link:'/components/virtualized-tree'}
           ]
         }
       ]

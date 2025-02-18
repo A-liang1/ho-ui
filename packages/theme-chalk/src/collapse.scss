@@ -1,15 +1,15 @@
 @use './mixins/mixin.scss' as *;
 
-.ho-collapse {
+@include b('collapse') {
   border: 1px solid #e5e5e5;
   border-radius: 4px;
   background-color: #fff;
-}
 
-.ho-collapse__wrapper {
-  padding: 10px;
-}
+  @include e('wrapper') {
+    padding: 10px;
+  }
 
-.ho-collapse--accordion {
-  /* 手风琴模式下的样式调整 */
+  @include m('accordion') {
+    /* 手风琴模式下的样式调整 */
+  }
 }

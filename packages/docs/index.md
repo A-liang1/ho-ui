@@ -9,7 +9,7 @@ hero:
   text: 一个Vue3组件库
   tagline: 毫无价值，只为学习组件库的搭建
   image:
-   src: /ho-ui.png
+   src: /public/ho-ui.png
    alt: Ho-ui
    style:
      maxHeight: 600px
@@ -22,7 +22,7 @@ hero:
       link: /guide/getting-started
     - theme: brand
       text: 组件
-      link: /components/button
+      link: /components/virtualized-tree
 features:
   - icon: 💡
     title: Vue3组件库
