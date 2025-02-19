@@ -7,7 +7,7 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: '指南', link: '/guide/getting-started' },
-      { text: '组件', link: '/components/' }
+      { text: '组件', link: '/componentsMD/' }
     ],
     sidebar: {
       '/guide/': [
@@ -22,7 +22,7 @@ export default defineConfig({
         {
           text: '组件',
           items: [
-            {text:'Virtualized Tree',link:'/components/virtualized-tree'}
+            { text: 'Virtualized Tree', link: '/componentsMD/virtualized-tree' }
           ]
         }
       ]

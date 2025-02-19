@@ -22,7 +22,7 @@ hero:
       link: /guide/getting-started
     - theme: brand
       text: 组件
-      link: /components/virtualized-tree
+      link: /componentsMD/virtualized-tree
 features:
   - icon: 💡
     title: Vue3组件库

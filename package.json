@@ -18,6 +18,7 @@
     "@ho-liang/hooks": "workspace:*",
     "@ho-liang/theme-chalk": "workspace:*",
     "@ho-liang/utils": "workspace:*",
+    "async-validator": "^4.2.5",
     "typescript": "^5.7.2"
   },
   "devDependencies": {

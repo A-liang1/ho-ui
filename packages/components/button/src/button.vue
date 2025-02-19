@@ -10,6 +10,7 @@ const bem = useNamespace('button', 'ho')
 defineOptions({ name: 'ho-button', inheritAttrs: false })
 
 const { size, type, round, loading, disabled, iconPlacement, nativeType } = defineProps(buttonProps)
+
 const emits = defineEmits(buttonEmits)
 const slots: any = useSlots()
 
@@ -33,7 +34,7 @@ const handleClick = (e: MouseEvent) => {
     :type="nativeType"
     @click="handleClick"
   >
-    <template v-if="iconPlacement === 'left'">
+    <template v-if="slots.icon && iconPlacement === 'left'">
       <ho-icon>
         <LoadingComponent v-if="loading" />
         <template v-if="!loading">
@@ -42,7 +43,7 @@ const handleClick = (e: MouseEvent) => {
       </ho-icon>
     </template>
     <slot></slot>
-    <template v-if="iconPlacement === 'right'">
+    <template v-if="slots.icon && iconPlacement === 'right'">
       <ho-icon>
         <LoadingComponent v-if="loading" />
         <template v-if="!loading">

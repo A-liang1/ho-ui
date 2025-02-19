@@ -1,8 +1,10 @@
 @use './common/global.scss';
 @use './common/vars.scss';
 @use 'reset.scss';
-@use 'button.scss';
 @use 'icon.scss';
+@use 'button.scss';
+@use 'input.scss';
+@use './form.scss';
 @use 'tree.scss';
 @use 'virtual-list.scss';
 @use 'collapse.scss';
