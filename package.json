@@ -14,11 +14,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@highlightjs/vue-plugin": "^2.1.0",
     "@ho-liang/components": "workspace:*",
     "@ho-liang/hooks": "workspace:*",
     "@ho-liang/theme-chalk": "workspace:*",
     "@ho-liang/utils": "workspace:*",
     "async-validator": "^4.2.5",
+    "highlight.js": "^11.11.1",
     "typescript": "^5.7.2"
   },
   "devDependencies": {

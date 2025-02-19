@@ -1,11 +1,12 @@
 
 <template>
-  <button @click="increment" style="width: 100px; height: 100px">
+  <ho-button @click="increment"  type="primary">
     {{ count }}
-  </button>
+  </ho-button>
 </template>
 
 <script setup>
+import HoButton from '@ho-liang/components/button';
 import { ref } from 'vue'
 
 const count = ref(0)
