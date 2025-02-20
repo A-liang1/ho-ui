@@ -12,7 +12,7 @@ export const buttonProps = {
     validator(value: string) {
       return ['default', 'primary', 'success', 'warning', 'danger', 'info'].includes(value)
     },
-    default: '',
+    default: 'primary',
   },
   round: Boolean,
   loading: Boolean,

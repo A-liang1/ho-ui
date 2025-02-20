@@ -4,6 +4,7 @@ import HoIcon from '@ho-liang/components/icon'
 import HoButton from '@ho-liang/components/button'
 import HoInput from '@ho-liang/components/input'
 import { Form as HoForm, FormItem as HoFormItem } from '@ho-liang/components/form'
+import HoUpload from '@ho-liang/components/upload'
 import HoTree from '@ho-liang/components/tree'
 import HoCheckbox from '@ho-liang/components/checkbox'
 import { HoCollapse, HoCollapseItem } from '@ho-liang/components/collapse'
@@ -18,6 +19,7 @@ const plugins = [
   HoInput,
   HoForm,
   HoFormItem,
+  HoUpload,
 ]
 const app = createApp(App)
 // use要求plugin上有install方法，所以要在withInstall return的时候断言
