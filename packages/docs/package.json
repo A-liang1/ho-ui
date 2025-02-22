@@ -15,5 +15,9 @@
     "@ho-liang/components": "workspace:*",
     "vitepress": "^1.5.0"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@highlightjs/vue-plugin": "^2.1.0",
+    "highlight.js": "^11.11.1"
+  }
 }

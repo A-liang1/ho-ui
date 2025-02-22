@@ -6,8 +6,9 @@
     <div class="code_box">
       <div class="code" :class="{ show_code: showCode }">
         <div class="code__reference">
-          <div class="code_content">
-            <highlightjs autodetect :code="sourceCode" />
+          <div class="code_content"> 
+             <highlightjs class="hljs" v-if="sourceCode" autodetect :code="sourceCode" />
+             <div v-else>代码加载中...</div>
           </div>
         </div>
       </div>
@@ -17,8 +18,42 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, toRefs } from "vue";
+import { onMounted, reactive, toRefs,watchEffect,onUnmounted } from "vue";
 import "highlight.js";
+import { useData } from 'vitepress'
+
+const { isDark } = useData()
+let currentThemeLink = null
+
+const loadTheme = (isDarkMode) => {
+  const theme = isDarkMode ? 'dark' : 'default'
+  const cssHref = `//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/${theme}.min.css`
+  
+  // 移除旧主题
+  if (currentThemeLink) {
+    document.head.removeChild(currentThemeLink)
+  }
+  
+  // 动态加载新主题
+  const link = document.createElement('link')
+  link.rel = 'stylesheet'
+  link.href = cssHref
+  document.head.appendChild(link)
+  
+  currentThemeLink = link
+}
+
+// 监听主题变化
+watchEffect(() => {
+  loadTheme(isDark.value)
+})
+
+// 组件卸载时清理
+onUnmounted(() => {
+  if (currentThemeLink) {
+    document.head.removeChild(currentThemeLink)
+  }
+})
 
 const props = defineProps({
   compName: {
@@ -44,9 +79,15 @@ const state = reactive({
 const { sourceCode, showCode, demoHTML } = toRefs(state);
 
 const componentCode = async () => {
-  // const data = await import(`./${props.compName}/${props.demoName}.vue?raw`);
-  const data = await import (`./${props.compName}.vue?raw`);
-  state.sourceCode = data.default;
+
+    try {
+     // const data = await import(`./${props.compName}/${props.demoName}.vue?raw`);
+     const data = await import (`./${props.compName}.vue?raw`);
+     state.sourceCode = data.default || '';
+  } catch (e) {
+    console.error('代码加载失败:', e);
+    state.sourceCode = '// 代码加载失败';
+  }
 };
 
 const handleClick = () => {

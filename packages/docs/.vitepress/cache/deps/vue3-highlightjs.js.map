@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../../node_modules/.pnpm/vue3-highlightjs@1.0.5_vue@3.5.13_typescript@5.7.3_/node_modules/vue3-highlightjs/dist/vue3-highlight-es.js"],
+  "sourcesContent": ["import hljs from 'highlight.js';\n\nfunction index (app) {\n  app.directive('highlightjs', function (el, binding) {\n    var codeNodes = el.querySelectorAll('code');\n\n    for (var i = 0; i < codeNodes.length; i++) {\n      var codeNode = codeNodes[i];\n\n      if (typeof binding.value === 'string') {\n        codeNode.textContent = binding.value;\n      }\n\n      hljs.highlightBlock(codeNode);\n    }\n  });\n}\n\nexport default index;\n"],
+  "mappings": ";;;;;;;;AAAA,uBAAiB;AAEjB,SAAS,MAAO,KAAK;AACnB,MAAI,UAAU,eAAe,SAAU,IAAI,SAAS;AAClD,QAAI,YAAY,GAAG,iBAAiB,MAAM;AAE1C,aAAS,IAAI,GAAG,IAAI,UAAU,QAAQ,KAAK;AACzC,UAAI,WAAW,UAAU,CAAC;AAE1B,UAAI,OAAO,QAAQ,UAAU,UAAU;AACrC,iBAAS,cAAc,QAAQ;AAAA,MACjC;AAEA,uBAAAA,QAAK,eAAe,QAAQ;AAAA,IAC9B;AAAA,EACF,CAAC;AACH;AAEA,IAAO,4BAAQ;",
+  "names": ["hljs"]
+}

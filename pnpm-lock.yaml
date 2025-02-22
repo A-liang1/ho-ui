@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@highlightjs/vue-plugin':
-        specifier: ^2.1.0
-        version: 2.1.0(highlight.js@11.11.1)(vue@3.5.13(typescript@5.7.3))
       '@ho-liang/components':
         specifier: workspace:*
         version: link:packages/components
@@ -32,9 +29,6 @@ importers:
       express:
         specifier: ^4.21.2
         version: 4.21.2
-      highlight.js:
-        specifier: ^11.11.1
-        version: 11.11.1
       multer:
         specifier: 1.4.5-lts.1
         version: 1.4.5-lts.1
@@ -44,10 +38,10 @@ importers:
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^5.2.1
-        version: 5.2.1(vite@5.4.14(@types/node@22.13.4)(sass@1.85.0))(vue@3.5.13(typescript@5.7.3))
+        version: 5.2.1(vite@6.1.0(@types/node@22.13.4)(sass@1.85.0))(vue@3.5.13(typescript@5.7.3))
       '@vitejs/plugin-vue-jsx':
         specifier: ^4.1.1
-        version: 4.1.1(vite@5.4.14(@types/node@22.13.4)(sass@1.85.0))(vue@3.5.13(typescript@5.7.3))
+        version: 4.1.1(vite@6.1.0(@types/node@22.13.4)(sass@1.85.0))(vue@3.5.13(typescript@5.7.3))
       sass:
         specifier: ^1.83.0
         version: 1.85.0
@@ -98,6 +92,13 @@ importers:
         version: 3.9.1(@types/node@22.13.4)(rollup@4.34.7)(typescript@5.7.3)(vite@6.1.0(@types/node@22.13.4)(sass@1.85.0))
 
   packages/docs:
+    dependencies:
+      '@highlightjs/vue-plugin':
+        specifier: ^2.1.0
+        version: 2.1.0(highlight.js@11.11.1)(vue@3.5.13(typescript@5.7.3))
+      highlight.js:
+        specifier: ^11.11.1
+        version: 11.11.1
     devDependencies:
       '@ho-liang/components':
         specifier: workspace:*
@@ -3455,12 +3456,12 @@ snapshots:
 
   '@vicons/ionicons5@0.13.0': {}
 
-  '@vitejs/plugin-vue-jsx@4.1.1(vite@5.4.14(@types/node@22.13.4)(sass@1.85.0))(vue@3.5.13(typescript@5.7.3))':
+  '@vitejs/plugin-vue-jsx@4.1.1(vite@6.1.0(@types/node@22.13.4)(sass@1.85.0))(vue@3.5.13(typescript@5.7.3))':
     dependencies:
       '@babel/core': 7.26.9
       '@babel/plugin-transform-typescript': 7.26.8(@babel/core@7.26.9)
       '@vue/babel-plugin-jsx': 1.2.5(@babel/core@7.26.9)
-      vite: 5.4.14(@types/node@22.13.4)(sass@1.85.0)
+      vite: 6.1.0(@types/node@22.13.4)(sass@1.85.0)
       vue: 3.5.13(typescript@5.7.3)
     transitivePeerDependencies:
       - supports-color
