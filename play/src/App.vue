@@ -9,6 +9,7 @@ const open = () => {
     duration: 1000,
     center: true,
     offset: 10,
+    showClose: true,
   })
 }
 

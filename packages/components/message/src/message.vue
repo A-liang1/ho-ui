@@ -5,6 +5,8 @@ import { useNamespace, useOffset, useEventListener } from '@ho-liang/hooks'
 import { RenderVnode, typeIconMap, addUnit } from '@ho-liang/utils'
 import { getLastBottomOffset } from './methods'
 import { delay, bind } from 'lodash-es'
+import CircleInfo from '@ho-liang/components/internal-icon/CircleInfo.vue'
+import CircleXmark from '../../internal-icon/CircleXmark.vue'
 
 const bem = useNamespace('message', 'ho')
 
@@ -27,7 +29,8 @@ const { topOffset, bottomOffset } = useOffset({
   boxHeight,
 })
 
-// const iconName = computed(() => typeIconMap.get(props.type) ?? 'circle-info')
+const iconName = computed(() => typeIconMap.get(props.type) ?? CircleInfo)
+console.log(iconName.value)
 
 // 通过顶部偏移量计算当前消息的位置
 const customeStyle = computed(() => ({
@@ -89,15 +92,15 @@ defineExpose<MessageCompInstance>({
       @mouseenter="clearTimmer"
       @mouseleave="startTimmer"
     >
-      <!-- <ho-icon :class="bem.e('close')" :icon="iconName" /> -->
+      <component :class="bem.e('icon')" :is="iconName" />
+
       <div :class="bem.e('content')">
         <slot>
           <render-vnode v-if="props.message" :vNode="props.message" />
         </slot>
       </div>
-      <!-- <div :class="bem.e('close')" v-if="showClose">
-        <ho-icon icon="xmark" @click.stop="close" />
-      </div> -->
+
+      <CircleXmark :class="bem.e('close')" @click.stop="close" v-if="showClose" />
     </div>
   </Transition>
 </template>

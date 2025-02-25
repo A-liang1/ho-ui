@@ -1,12 +1,16 @@
 import { defineComponent } from 'vue'
 import { isFunction } from './vue'
+import CircleInfo from '@ho-liang/components/internal-icon/CircleInfo.vue'
+import CheckCircle from '@ho-liang/components/internal-icon/CheckCircle.vue'
+import CircleExclamation from '@ho-liang/components/internal-icon/CircleExclamation.vue'
+import CircleXmark from '@ho-liang/components/internal-icon/CircleXmark.vue'
 
 export const typeIconMap = new Map([
-  ['info', 'circle-info'],
-  ['success', 'check-circle'],
-  ['warning', 'circle-exclamation'],
-  ['danger', 'circle-xmark'],
-  ['error', 'circle-xmark'],
+  ['info', CircleInfo],
+  ['success', CheckCircle],
+  ['warning', CircleExclamation],
+  ['danger', CircleXmark],
+  ['error', CircleXmark],
 ])
 
 export const RenderVnode = defineComponent({
