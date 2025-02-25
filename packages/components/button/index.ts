@@ -1,7 +1,7 @@
 import _Button from './src/button.vue'
 import { withInstall } from '@ho-liang/utils'
 
-const HoButton = withInstall(_Button)
+export const HoButton = withInstall(_Button)
 
 export default HoButton
 

@@ -1,0 +1,58 @@
+@use './mixins/mixin' as *;
+@use './common/vars' as *;
+@use 'sass:map';
+
+@include b(message) {
+  position: fixed;
+  left: 50%;
+  top: 20px;
+  transform: translateX(-50%);
+  min-width: 300px;
+  padding: 15px 20px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+
+  @include e(icon) {
+    margin-right: 10px;
+    font-size: 16px;
+  }
+
+  @include e(content) {
+    flex: 1;
+  }
+
+  @include e(close) {
+    margin-left: 15px;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+@each $type in info, success, warning, danger {
+  .ho-message--#{$type} {
+    background-color: map.get($colors, $type, 'light-9');
+    border-color: map.get($colors, $type, 'light-3');
+    color: map.get($colors, $type, 'light-1');
+
+    border-left: 4px solid map.get($colors, $type, 'base');
+    padding-left: 16px; // 调整内边距
+  }
+}
+
+// 过渡动画
+.fade-up {
+  &-enter-from {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+  &-leave-to {
+    opacity: 0;
+    transform: translate(-50%, 20px);
+  }
+}
